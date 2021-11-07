@@ -19,6 +19,9 @@ function MyApp({ Component, emotionCache = clientCache, pageProps }: AppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
+        <title>Plex TV</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="TV stations from Plex" />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
