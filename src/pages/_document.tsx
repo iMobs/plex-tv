@@ -7,7 +7,7 @@ import NextDocument, {
   DocumentContext,
 } from 'next/document';
 import { Children } from 'react';
-import createEmotionCache from 'utils/createEmotionCache';
+import createEmotionCache from 'lib/createEmotionCache';
 
 export default class MyDocument extends NextDocument {
   static async getInitialProps(ctx: DocumentContext) {
