@@ -4,10 +4,10 @@ import { v4 as uuid } from 'uuid';
 
 // Set once, preferably externally
 const PLEX_ID = process.env.PLEX_ID ?? uuid();
+const PLEX_URL = process.env.PLEX_URL ?? 'http://127.0.0.1:32400';
 
 export interface PlexApiOptions {
   authToken?: string;
-  baseURL?: string;
 }
 
 export class PlexApi {
@@ -15,16 +15,16 @@ export class PlexApi {
   private readonly xhr: AxiosInstance;
 
   constructor(options: PlexApiOptions = {}) {
-    const { authToken, baseURL = 'http://localhost:32400' } = options;
+    const { authToken } = options;
 
     if (authToken) {
       this.authToken = authToken;
     }
 
     this.xhr = axios.create({
-      baseURL,
+      baseURL: PLEX_URL,
       headers: {
-        'X-Plex-Product': 'imobs-plex-tv',
+        'X-Plex-Product': 'iMobs Plex TV',
         'X-Plex-Client-Identifier': PLEX_ID,
       },
     });
@@ -92,23 +92,29 @@ export class PlexApi {
     return res.data;
   }
 
-  public authUrl(code: string, forwardUrl: string) {
+  public authUrl({ code }: Pin, forwardUrl: string) {
     const baseUrl = 'https://app.plex.tv/auth#?';
     const params = qs.stringify({
       clientID: PLEX_ID,
       code,
       forwardUrl,
-      context: { device: { product: 'mobs-plex-tv' } },
+      context: { device: { product: 'iMobs Plex TV' } },
     });
 
     return baseUrl + params;
+  }
+
+  public async getUser() {
+    const res = await this.xhr.get<User>('https://plex.tv/api/v2/user');
+
+    return res.data;
   }
 }
 
 export interface Pin {
   id: number;
   code: string;
-  authToken: string | null;
+  authToken?: string;
 }
 
 export interface User {

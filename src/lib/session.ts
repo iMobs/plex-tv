@@ -3,10 +3,11 @@ import { ironSession } from 'iron-session/express';
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next';
 import type { GetServerSideProps, NextApiHandler, PreviewData } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
+import { Pin } from 'lib/plex';
 
 declare module 'iron-session' {
   interface IronSessionData {
-    // TODO
+    pin?: Pin;
   }
 }
 
