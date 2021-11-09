@@ -10,12 +10,14 @@ declare module 'iron-session' {
   }
 }
 
-const cookieName = process.env.SESSION_NAME ?? 'TODO';
-const password =
-  process.env.SESSION_PASSWORD ?? 'TODOTODOTODOTODOTODOTODOTODOTODO';
+const password = process.env.SESSION_PASSWORD;
+
+if (!password) {
+  throw Error('SESSION_PASSWORD env var not set');
+}
 
 const sessionOptions: IronSessionOptions = {
-  cookieName,
+  cookieName: 'imobs-plex-tv',
   password,
 };
 
