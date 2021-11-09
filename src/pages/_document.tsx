@@ -6,7 +6,7 @@ import NextDocument, {
   NextScript,
   DocumentContext,
 } from 'next/document';
-import { Children } from 'react';
+import React from 'react';
 import createEmotionCache from 'lib/createEmotionCache';
 
 export default class MyDocument extends NextDocument {
@@ -36,7 +36,10 @@ export default class MyDocument extends NextDocument {
 
     return {
       ...initialProps,
-      styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
+      styles: [
+        ...React.Children.toArray(initialProps.styles),
+        ...emotionStyleTags,
+      ],
     };
   }
 
