@@ -3,8 +3,9 @@ import type { EmotionCache } from '@emotion/cache';
 import { CacheProvider, ThemeProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
 import Head from 'next/head';
-import createEmotionCache from 'utils/createEmotionCache';
-import theme from 'utils/theme';
+import createEmotionCache from 'lib/createEmotionCache';
+import theme from 'lib/theme';
+import NavBar from 'components/NavBar';
 
 declare module 'next/app' {
   interface AppInitialProps {
@@ -26,6 +27,7 @@ function MyApp({ Component, emotionCache = clientCache, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <NavBar />
         <Component {...pageProps} />
       </ThemeProvider>
     </CacheProvider>
