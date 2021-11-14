@@ -11,8 +11,7 @@ FROM node:16-alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-ARG SENTRY_AUTH_TOKEN
-RUN yarn build
+RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
@@ -39,4 +38,4 @@ EXPOSE 3000
 # Uncomment the following line in case you want to disable telemetry.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-CMD ["yarn", "start"]
+CMD ["node_modules/.bin/next", "start"]
