@@ -12,7 +12,7 @@
     "@emotion/react": "^11.8.1",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.6.0",
-    "@mui/material": "^5.4.3",
+    "@mui/material": "^5.4.4",
     "iron-session": "^6.0.5",
     "next": "^12.1.0",
     "next-connect": "^0.12.2",
